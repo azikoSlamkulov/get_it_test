@@ -11,12 +11,11 @@ class AllUsersCubit extends Cubit<AllUserState> {
   }) : super(LoadingState());
 
   void loadAllUsers() async {
-    if (state is LoadingState) {
-      final _allUsers = await getAllUsers.getAllUsers();
-      _allUsers.fold(
-        (error) => emit(const LoadingFailureState('')),
-        (_users) => emit(LoadedState(_users)),
-      );
-    }
+    emit(LoadingState());
+    final _allUsers = await getAllUsers.getAllUsers();
+    _allUsers.fold(
+      (error) => emit(const LoadingFailureState('')),
+      (_users) => emit(LoadedState(_users)),
+    );
   }
 }
