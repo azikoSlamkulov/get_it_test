@@ -14,10 +14,8 @@ class AllUsersCubit extends Cubit<AllUserState> {
     if (state is LoadingState) {
       final _allUsers = await getAllUsers.getAllUsers();
       _allUsers.fold(
-        (error) => const LoadingFailureState(''),
-        (_users) {
-          return emit(LoadedState(_users));
-        },
+        (error) => emit(const LoadingFailureState('')),
+        (_users) => emit(LoadedState(_users)),
       );
     }
   }
